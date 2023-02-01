@@ -29,6 +29,12 @@ public class SingupPage extends BasePage{
     @FindBy(xpath = "/html/body/div/div[1]/main/div/div[2]/div/div/div[3]/div/div/div/div/div[1]")
     private WebElement messageForSingup;
 
+    @FindBy(xpath = "/html/body/div/div[4]/div/div/div[1]")
+    private WebElement importantMessage;
+
+    @FindBy(xpath = "/html/body/div/div[1]/main/div/div[2]/div/div/div[3]/div/div/div/div/div[1]")
+    private WebElement messageEmailAlreadyExists;
+
 
 
     public SingupPage(WebDriver driver, WebDriverWait driverWait) {
@@ -57,5 +63,29 @@ public class SingupPage extends BasePage{
 
     public String getMessageForSingup() {
         return messageForSingup.getText();
+    }
+
+    public String  getInputName() {
+        return inputName.getAttribute("type");
+    }
+
+    public String getInputEmail() {
+        return inputEmail.getAttribute("type");
+    }
+
+    public String getInputPassword() {
+        return inputPassword.getAttribute("type");
+    }
+
+    public String  getInputAgainPassword() {
+        return inputAgainPassword.getAttribute("type");
+    }
+
+    public String getImportantMessage() {
+        return importantMessage.getText();
+    }
+
+    public String getMessageEmailAlreadyExists() {
+        return messageEmailAlreadyExists.getText();
     }
 }

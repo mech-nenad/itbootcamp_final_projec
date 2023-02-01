@@ -1,6 +1,9 @@
 package tests;
 
 import com.github.javafaker.Faker;
+import org.apache.commons.lang3.exception.ExceptionContext;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -13,34 +16,27 @@ public class LoginTest extends BaseTest{
 //        Assert.assertTrue(loginPage.isLoginFormPresented());
 //    }
 
-    @Test
+    @Test  //Test 1
     public void loginTest() {
 
-            homePage.loginButton();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        homePage.loginButton();
 
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
 
-    @Test
+    @Test   // Test 2
     public void checkInputValue() {
         homePage.loginButton();
 
-        Assert.assertTrue(loginPage.getInputEmail().contains("type"));
+        String emailValue = "email";
+        Assert.assertEquals(loginPage.getInputEmail(), emailValue);
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        String passwordValue = "password";
+        Assert.assertEquals(loginPage.getInputPassword(), passwordValue);
     }
 
 
-    @Test
+    @Test   // Test 3
     public void displaysError() {
         homePage.loginButton();
         faker = new Faker();
@@ -51,18 +47,14 @@ public class LoginTest extends BaseTest{
         loginPage.inputValue(emailFakerInput, passwordFakerInput);
 
 
-
         Assert.assertTrue(loginPage.getMessageInvalid().contains("User does not exists"));
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
+
 
     }
 
-    @Test
+    @Test   // Test 4
     public void passwordWrong() {
         homePage.loginButton();
         faker = new Faker();
@@ -75,35 +67,30 @@ public class LoginTest extends BaseTest{
 
     }
 
-    @Test
+    @Test   //Test 5
     public void validInput() {
         homePage.loginButton();
         loginPage.inputValue("admin@admin.com","12345");
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        driverWait.until(ExpectedConditions.urlContains("/home"));
+
 
         Assert.assertTrue(driver.getCurrentUrl().contains("/home"));
     }
 
-    @Test
+    @Test   // Test 6
     public void checkLogoutButton() {
         homePage.loginButton();
         loginPage.inputValue("admin@admin.com","12345");
 
+
         loginPage.logoutIsPresented();
         loginPage.logoutSelected();
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
 
-        Assert.assertTrue(driver.getCurrentUrl().contains("/home"));
+        driver.get("https://vue-demo.daniel-avellaneda.com"+"/home");
+        Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
 
     }
+
 }

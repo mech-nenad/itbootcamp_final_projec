@@ -47,7 +47,7 @@ public abstract class BaseTest {
     public void beforMethod() {
         driver.get("https://vue-demo.daniel-avellaneda.com/");
         driver.manage().window().maximize();
-//        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
 
     }
 
