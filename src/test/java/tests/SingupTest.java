@@ -33,12 +33,8 @@ public class SingupTest extends BaseTest{
 
     @Test //Test3
     public void displaysErrorWhenUserAlreadyExists() {
+
         singupPage.singupSelected();
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
 
         driverWait.until(ExpectedConditions.urlContains("/signup"));
 
