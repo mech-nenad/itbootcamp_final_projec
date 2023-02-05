@@ -6,7 +6,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import pages.HomePage;
+import pages.LandingPage;
 import pages.LoginPage;
 import pages.SingupPage;
 
@@ -20,7 +20,7 @@ public abstract class BaseTest {
 
     protected LoginPage loginPage;
 
-    protected HomePage homePage;
+    protected LandingPage homePage;
 
     protected SingupPage singupPage;
 
@@ -31,9 +31,9 @@ public abstract class BaseTest {
         driver = new ChromeDriver();
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-        driverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        driverWait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-        homePage = new HomePage(driver, driverWait);
+        homePage = new LandingPage(driver, driverWait);
         loginPage = new LoginPage(driver, driverWait);
         singupPage = new SingupPage(driver, driverWait);
 
@@ -44,7 +44,7 @@ public abstract class BaseTest {
         }
 
     @BeforeMethod
-    public void beforMethod() {
+    public void beforeMethod() {
         driver.get("https://vue-demo.daniel-avellaneda.com/");
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));

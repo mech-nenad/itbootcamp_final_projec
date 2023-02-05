@@ -5,23 +5,23 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class HomePage extends BasePage{
+public class LandingPage extends BasePage{
 
     @FindBy(xpath = "/html/body/div/div/div/header/div/div[3]/a[3]/span")
-    private WebElement logincontent;
+    private WebElement loginContent;
 
 
 
 
-    public HomePage(WebDriver driver, WebDriverWait driverWait) {
+    public LandingPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
     }
 
     public void loginButton() {
-        logincontent.click();
+        loginContent.click();
     }
 
     public boolean isLoginFormPresented() {
-        return logincontent.isDisplayed();
+        return loginContent.isDisplayed();
     }
 }

@@ -4,11 +4,10 @@ import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pages.AdminCitiesPage;
 
-public class AdminCitiesTest extends BaseTest{
+public class AdminCitiesTest extends BaseTest {
 
     private AdminCitiesPage adminCitiesPage;
     private Faker faker;
@@ -21,18 +20,24 @@ public class AdminCitiesTest extends BaseTest{
         super.beforeClass();
         adminCitiesPage = new AdminCitiesPage(driver, driverWait);
         faker = new Faker();
-        newNameCity =  faker.address().cityName(); // faker nije inicijalizovan, nullPointer
-        // poenta je da imas newNameCity na nivou klase, tako da sve metode mogu da pristupe tom imenu
+        newNameCity = faker.address().cityName();
+    }
+    @Override
+    @BeforeMethod
+    public void beforeMethod() {
+        super.beforeMethod();
+        homePage.loginButton();
+        loginPage.inputValue("admin@admin.com", "12345");
+    }
+
+    @AfterMethod
+    public void afterMethod() {
+        adminCitiesPage.logoutSelected();
     }
 
     @Test   //Test 1
     public void loginAdmin() {
-        homePage.loginButton();
-        loginPage.inputValue("admin@admin.com", "12345");
-
-
         adminCitiesPage.selectedAdminContent();
-
 
         adminCitiesPage.selectedContentCities();
 
@@ -46,22 +51,11 @@ public class AdminCitiesTest extends BaseTest{
     @Test  //Test 2
     public void createNewCity() {
 
-        faker = new Faker();
-
-        homePage.loginButton();
-        loginPage.inputValue("admin@admin.com", "12345");
-
         adminCitiesPage.selectedAdminContent();
         adminCitiesPage.selectedContentCities();
 
-        adminCitiesPage.createNewCity(newNameCity);
+        adminCitiesPage.createNewCity(newNameCity+"1");
 
-        System.out.println(newNameCity);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         adminCitiesPage.saveCitySelected();
 
         Assert.assertTrue(adminCitiesPage.getMessageForCreateNewCity().contains("Saved successfully"));
@@ -70,46 +64,33 @@ public class AdminCitiesTest extends BaseTest{
 
 
     @Test  //Test 3
-    public  void editCity() {
-        homePage.loginButton();
-        loginPage.inputValue("admin@admin.com", "12345");
+    public void editCity() throws InterruptedException{
 
         adminCitiesPage.selectedAdminContent();
         adminCitiesPage.selectedContentCities();
 
-
-        adminCitiesPage.createNewCity(newNameCity);
+        String newCityName = newNameCity+"2";
+        adminCitiesPage.createNewCity(newCityName);
         adminCitiesPage.saveCitySelected();
 
 
-        adminCitiesPage.searchCity(newNameCity);
+        adminCitiesPage.searchCity(newCityName);
 
-        adminCitiesPage.editCity(newNameCity + "- edited");
+        adminCitiesPage.editCity(newCityName+"- edited");
         adminCitiesPage.saveCitySelected();
 
+        Thread.sleep(2000);
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-
-
-        adminCitiesPage.againSearchCity(newNameCity + "- edited");
-        adminCitiesPage.editCity(newNameCity);
+        adminCitiesPage.againSearchCity(newCityName + "- edited");
+        adminCitiesPage.editCity(newCityName);
         adminCitiesPage.saveCitySelected();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+
+        Assert.assertTrue(adminCitiesPage.getMessageForCreateNewCity().contains("Saved successfully"));
     }
 
     @Test  //Test 4
     public void SearchCity() {
-        homePage.loginButton();
-        loginPage.inputValue("admin@admin.com", "12345");
+
 
         adminCitiesPage.selectedAdminContent();
 
@@ -126,47 +107,26 @@ public class AdminCitiesTest extends BaseTest{
 
     @Test  //Test 5
     public void deleteCity() throws InterruptedException {
-        homePage.loginButton();
-        loginPage.inputValue("admin@admin.com", "12345");
 
         adminCitiesPage.selectedAdminContent();
 
         adminCitiesPage.selectedContentCities();
 
-        adminCitiesPage.createNewCity(newNameCity);
+        adminCitiesPage.createNewCity(newNameCity + "3");
         adminCitiesPage.saveCitySelected();
+        adminCitiesPage.cancelNotificationMessage();
+        adminCitiesPage.searchCity(newNameCity + "3");
+        driverWait.until(ExpectedConditions.numberOfElementsToBe(By.xpath("/html/body/div/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr/td[2]"), 1));
+        Assert.assertTrue(adminCitiesPage.getTable().contains(newNameCity + "3"));
+        adminCitiesPage.deleteCity();
 
-        adminCitiesPage.searchCity(newNameCity);
-        driverWait.until(ExpectedConditions.numberOfElementsToBe(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[2]/table/colgroup"),1));
+        driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/div[6]/div/div/div[1]")));
+        adminCitiesPage.deleteCityTable();
 
-        // driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"delete\"]/span/i")));
-        Thread.sleep(2000);
-         adminCitiesPage.deleteCity();
 
-        Thread.sleep(5000);
-
-        // Nije hteo da mi selektuje delete dugme!
-        driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), ' Delete ')")));
-        adminCitiesPage.deleteCityTabel();
-
-        Thread.sleep(2000);
-
-//
-//        Assert.assertTrue(adminCitiesPage.getMessageDeleteCity().contains("Deleted successfully"));
-
+         System.out.println(adminCitiesPage.getMessageDeleteCity());
+        Assert.assertTrue(adminCitiesPage.getMessageDeleteCity().contains("Deleted successfully"));
 
     }
 
 }
-/*
-Podaci: editovani grad iz testa #3
-        assert:
-        •	U polje za pretragu uneti staro ime grada
-        •	Sacekati da broj redova u tabeli bude 1
-        •	Verifikovati da se u Name koloni prvog reda nalazi tekst iz pretrage
-        •	Kliknuti na dugme Delete iz prvog reda
-        •	Sacekati da se dijalog za brisanje pojavi
-        •	Kliknuti na dugme Delete iz dijaloga
-        •	Sacekati da popu za prikaz poruke bude vidljiv
-        •	Verifikovati da poruka sadrzi tekst Deleted successfully
-*/

@@ -26,7 +26,7 @@ public class LocalePage extends BasePage{
         super(driver, driverWait);
     }
 
-    public void selectedlanguageMeni() {
+    public void selectedLanguageMeni() {
         selectedLanguage.click();
     }
 

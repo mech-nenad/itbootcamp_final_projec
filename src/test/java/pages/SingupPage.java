@@ -51,7 +51,7 @@ public class SingupPage extends BasePage{
 
 
 
-    public void inputValueForSingup(String name, String email, String password, String confirmPassword) {
+    public void inputValueForSingUp(String name, String email, String password, String confirmPassword) {
         inputName.sendKeys(name);
         inputEmail.sendKeys(email);
         inputPassword.sendKeys(password);
@@ -61,7 +61,7 @@ public class SingupPage extends BasePage{
 
     }
 
-    public String getMessageForSingup() {
+    public String getMessageForSingUp() {
         return messageForSingup.getText();
     }
 

@@ -17,7 +17,7 @@ public class LoginPage extends BasePage{
     private WebElement inputPassword;
 
     @FindBy(xpath = "/html/body/div/div[1]/main/div/div[2]/div/div/div[3]/span/form/div/div[3]/button/span")
-    private WebElement loginbuttin;
+    private WebElement loginButton;
 
     @FindBy(xpath = "/html/body/div/div[1]/main/div/div[2]/div/div/div[4]/div/div/div/div/div[1]")
     private WebElement messageInvalid;
@@ -26,7 +26,7 @@ public class LoginPage extends BasePage{
     private WebElement messageForWrongPassword;
 
     @FindBy(xpath = "/html/body/div/div[1]/div/header/div/div[3]/button[2]/span")
-    private WebElement logoutcontent;
+    private WebElement logoutContent;
 
 
     public LoginPage(WebDriver driver, WebDriverWait driverWait) {
@@ -43,16 +43,16 @@ public class LoginPage extends BasePage{
     this.inputPassword.clear();
     this.inputPassword.sendKeys(userPassword);
 
-    this.loginbuttin.click();
+    this.loginButton.click();
 
 
     }
 
     public boolean logoutIsPresented() {
-        return logoutcontent.isDisplayed();
+        return logoutContent.isDisplayed();
     }
     public void logoutSelected() {
-        logoutcontent.click();
+        logoutContent.click();
     }
 
     public String getInputEmail() {

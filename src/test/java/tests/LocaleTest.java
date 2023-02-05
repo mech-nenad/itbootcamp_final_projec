@@ -1,7 +1,5 @@
 package tests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -21,7 +19,7 @@ public class LocaleTest extends BaseTest{
 
     @Test   //Test 1
     public void setLocaleToES() {
-        localePage.selectedlanguageMeni();
+        localePage.selectedLanguageMeni();
 
         localePage.selectedLanguageSpanish();
 
@@ -31,7 +29,7 @@ public class LocaleTest extends BaseTest{
 
     @Test  //Test 2
     public void setLocaleToEN() {
-        localePage.selectedlanguageMeni();
+        localePage.selectedLanguageMeni();
         localePage.selectedLanguageEnglish();
 
         driverWait.withMessage("Landing");
@@ -40,7 +38,7 @@ public class LocaleTest extends BaseTest{
 
     @Test  //Test 3
     public void setLocaleToFR() {
-        localePage.selectedlanguageMeni();
+        localePage.selectedLanguageMeni();
         localePage.selectedLanguageFrench();
 
         driverWait.withMessage("Page d'atterrissage");

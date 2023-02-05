@@ -4,7 +4,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProfilePage extends BasePage{
@@ -39,6 +38,9 @@ public class ProfilePage extends BasePage{
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[2]/span/form/div/div/div[4]/span/div/div/div[1]/div[1]/div[1]/div/button")
     private WebElement selectedDeleteButtonForCity;
 
+    @FindBy(xpath = "//*[@id=\"list-item-127-0\"]/div/div/span")
+    private WebElement acceptCitySelected;
+
     public ProfilePage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
     }
@@ -47,20 +49,6 @@ public class ProfilePage extends BasePage{
         selectedMyProfileButton.click();
     }
 
-    public void changeAllValues(String inputName, String inputPhone, String inputCity,  String inputUrlTwitter, String inputUrlGitHub) {
-        changeName.clear();
-        changeName.sendKeys(inputName);
-        changePhone.clear();
-        changePhone.sendKeys(inputPhone);
-        changeCity.clear();
-        changeCity.sendKeys(inputCity);
-        changeUrlTwitter.clear();
-        changeUrlTwitter.sendKeys(inputUrlTwitter);
-        changeUrlGitHub.clear();
-        changeUrlGitHub.sendKeys(inputUrlGitHub);
-        selectedSaveButton.click();
-
-    }
     public void selectedSave() {
         selectedSaveButton.click();
     }
@@ -69,34 +57,63 @@ public class ProfilePage extends BasePage{
         return messageForSaveChange.getText();
     }
 
-    public void changeName1(String inputName) {
+    public void changeName(String inputName) {
         changeName.sendKeys(Keys.CONTROL + "a");
         changeName.sendKeys(Keys.DELETE);
         changeName.sendKeys(inputName);
     }
-    public void changePhone1(String inputPhone) {
+    public void changePhone(String inputPhone) {
         changePhone.sendKeys(Keys.CONTROL + "a");
         changePhone.sendKeys(Keys.DELETE);
         changePhone.sendKeys(inputPhone);
     }
-    public void changeCountry1(String inputCountry) {
+    public void changeCountry(String inputCountry) {
         changeCountry.sendKeys(Keys.CONTROL + "a");
         changeCountry.sendKeys(Keys.DELETE);
         changeCountry.sendKeys(inputCountry);
     }
-    public void changeUrlTwitter1(String inputTwitter) {
+    public void changeUrlTwitter(String inputTwitter) {
         changeUrlTwitter.sendKeys(Keys.CONTROL + "a");
         changeUrlTwitter.sendKeys(Keys.DELETE);
         changeUrlTwitter.sendKeys(inputTwitter);
     }
-    public void changeUrlGitHub1(String inputGitHub) {
+    public void changeUrlGitHub(String inputGitHub) {
         changeUrlGitHub.sendKeys(Keys.CONTROL + "a");
         changeUrlGitHub.sendKeys(Keys.DELETE);
         changeUrlGitHub.sendKeys(inputGitHub);
     }
-    public void changeCity1() {
-        selectedDeleteButtonForCity.click();
-        Select category = new Select(changeCity);
-        category.selectByIndex(1);
+    public void changeCity() {
+        changeCity.sendKeys(Keys.CONTROL + "a");
+        changeCity.sendKeys(Keys.DELETE);
+        changeCity.sendKeys(Keys.ARROW_DOWN);
+        changeCity.sendKeys(Keys.ARROW_DOWN);
+        changeCity.sendKeys(Keys.ENTER);
+
+
+    }
+
+
+    public String getChangeName1() {
+        return changeName.getAttribute("value");
+    }
+
+    public String getChangePhone() {
+        return changePhone.getAttribute("value");
+    }
+
+    public String getChangeCity() {
+        return changeCity.getAttribute("value");
+    }
+
+    public String getChangeCountry() {
+        return changeCountry.getAttribute("value");
+    }
+
+    public String getChangeUrlTwitter() {
+        return changeUrlTwitter.getAttribute("value");
+    }
+
+    public String getChangeUrlGitHub() {
+        return changeUrlGitHub.getAttribute("value");
     }
 }

@@ -24,7 +24,7 @@ public class AdminCitiesPage extends BasePage{
     @FindBy(id = "name")
     private WebElement inputNewCityName;
 
-    @FindBy(xpath = "/html/body/div/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")
+    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")
     private WebElement messageForCreateNewCity;
 
     @FindBy(xpath = "//*[@id=\"app\"]/div[5]/div/div/div[3]/button[2]")
@@ -44,23 +44,36 @@ public class AdminCitiesPage extends BasePage{
     private WebElement clearSearchField;
 
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr[1]/td[2]")
-    private WebElement messegaCitiSearch;
+    private WebElement messageCitiSearch;
 
     @FindBy(xpath = "//*[@id=\"delete\"]/span/i")
     private WebElement deleteButton;
 
-    @FindBy(xpath = "//*[@id=\"app\"]/div[12]/div/div/div[2]/button[2]") //radi dalje, videcu ovo sam
+    @FindBy(css = "#app > div.v-dialog__content.v-dialog__content--active > div > div > div.v-card__actions > button.v-btn.v-btn--text.theme--light.v-size--default.red--text.text--lighten3")
     private WebElement selectedDeleteButton;
-
+    //@FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")
+  //@FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")
     private WebElement messageDeleteCity;
 
+    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")
+    private WebElement message;
     @FindBy(className = "text-left")
     private WebElement searchCity;
 
-    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[2]/table/colgroup")
-    private WebElement tabela;
+  //  @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[2]/table/colgroup")
+    @FindBy(xpath = "/html/body/div/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr/td[2]")
+    private WebElement table;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div/header/div/div[3]/button[2]/span")
+    private WebElement logoutcontent;
+
+    @FindBy(xpath = "/html/body/div/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]/button/span")
+    private WebElement closeButton;
+
+    @FindBy(xpath = "/html/body/div/div[6]/div/div/div[1]")
+                   // /html/body/div/div[7]/div/div/div[1]
+    private WebElement messageDoYouReallyWantToDelete;
     public AdminCitiesPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
     }
@@ -92,7 +105,6 @@ public class AdminCitiesPage extends BasePage{
         editCityName.click();
         nameCityRename.sendKeys(Keys.CONTROL + "a");
         nameCityRename.sendKeys(Keys.DELETE);
-        // Ovde mi ostane prazano polje za grad ne doda mi novi grad!
         nameCityRename.sendKeys(nameCity);
     }
 
@@ -107,13 +119,13 @@ public class AdminCitiesPage extends BasePage{
     }
 
     public String getMessageCitySearch() {
-        return messegaCitiSearch.getText();
+        return messageCitiSearch.getText();
     }
 
     public void deleteCity() {
         deleteButton.click();
     }
-    public void deleteCityTabel() {
+    public void deleteCityTable() {
         selectedDeleteButton.click();
     }
 
@@ -124,4 +136,28 @@ public class AdminCitiesPage extends BasePage{
     public String getSearchCity() {
         return searchCity.getText();
     }
+
+    public boolean logoutIsPresented() {
+    return  logoutcontent.isDisplayed();
+    }
+
+    public void logoutSelected() {
+        logoutcontent.click();
+    }
+
+    public WebElement getMessageElement() {
+        return message;
+    }
+    public void cancelNotificationMessage() {
+        closeButton.click();
+    }
+
+    public String getTable() {
+        return table.getText();
+    }
+
+    public String getMessageDoYouReallyWantToDelete() {
+        return messageDoYouReallyWantToDelete.getText();
+    }
 }
+

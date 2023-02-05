@@ -1,8 +1,12 @@
 package tests;
 
 import com.github.javafaker.Faker;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.ProfilePage;
 
@@ -20,67 +24,59 @@ public class ProfileTest extends BaseTest{
         profilePage = new ProfilePage(driver, driverWait);
         faker = new Faker();
     }
-
-
-    @Test   // Test 1
-    public void editsProfile() {
+    @Override
+    @BeforeMethod
+    public void beforeMethod() {
+        super.beforeMethod();
         homePage.loginButton();
         loginPage.inputValue("admin@admin.com","12345");
+    }
+
+
+    @AfterMethod
+    public void afterMethod() {
+        loginPage.logoutSelected();
+    }
+
+    @Test   // Test 1
+    public void editsProfile() throws InterruptedException {
 
         profilePage.selectedProfile();
         String name = faker.name().fullName();
 
 
-        profilePage.changeName1(name);
-        System.out.println(name);
+        profilePage.changeName(name);
+        Assert.assertEquals(name, profilePage.getChangeName1());
+        driverWait.until(ExpectedConditions.visibilityOfElementLocated((By.id("name")) ));
 
-
-        String phone = faker.phoneNumber().phoneNumber();
-        profilePage.changePhone1(phone);
-//
-//        String city = faker.address().cityName();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        String phone = faker.phoneNumber().cellPhone();
+        profilePage.changePhone(phone);
+        Assert.assertEquals(phone, profilePage.getChangePhone());
+        driverWait.until(ExpectedConditions.visibilityOfElementLocated((By.id("phone")) ));
 
         String country = faker.country().name();
-        profilePage.changeCountry1(country);
-//
-//
+        profilePage.changeCountry(country);
+        Assert.assertEquals(country, profilePage.getChangeCountry());
+
         String twitter = "https://Tikva.info";
-        profilePage.changeUrlTwitter1(twitter);
+        profilePage.changeUrlTwitter(twitter);
+        Assert.assertEquals(twitter, profilePage.getChangeUrlTwitter());
 
-//
+
         String gitHub = "http://Tikva2.net";
-        profilePage.changeUrlGitHub1(gitHub);
+        profilePage.changeUrlGitHub(gitHub);
+        Assert.assertEquals(gitHub, profilePage.getChangeUrlGitHub());
 
-//
-//        profilePage.changeAllValues(name, phone, city, twitter, gitHub);
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        profilePage.changeCity();
+        driverWait.until(ExpectedConditions.visibilityOfElementLocated((By.id("city")) ));
+        //Assert.assertEquals( profilePage.getChangeCity());
+//        Thread.sleep(500);
 
-        // Nisam uspeo da izaberem grad
-
-        // profilePage.changeCity1();
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
 
         profilePage.selectedSave();
+        Thread.sleep(500);
 
          Assert.assertTrue(profilePage.getMessageForSaveChange().contains("Profile saved successfuly"));
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 }

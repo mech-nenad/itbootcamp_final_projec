@@ -1,8 +1,7 @@
 package tests;
 
 import com.github.javafaker.Faker;
-import org.apache.commons.lang3.exception.ExceptionContext;
-import org.openqa.selenium.support.ui.ExpectedCondition;
+
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -11,10 +10,6 @@ public class LoginTest extends BaseTest{
     private Faker faker;
 
 
-//    @Test
-//    public void isLoginPreseted() {
-//        Assert.assertTrue(loginPage.isLoginFormPresented());
-//    }
 
     @Test  //Test 1
     public void loginTest() {
@@ -55,7 +50,7 @@ public class LoginTest extends BaseTest{
     }
 
     @Test   // Test 4
-    public void passwordWrong() {
+    public void passwordWrong() throws InterruptedException {
         homePage.loginButton();
         faker = new Faker();
         String passwordFakerInput = faker.internet().password();
@@ -63,7 +58,8 @@ public class LoginTest extends BaseTest{
         loginPage.inputValue("admin@admin.com", passwordFakerInput);
 
         Assert.assertTrue(loginPage.getMessageForWrongPassword().contains("Wrong password"));
-        Assert.assertTrue(driver.getCurrentUrl().contains("/login "));
+
+        Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
 
     }
 
