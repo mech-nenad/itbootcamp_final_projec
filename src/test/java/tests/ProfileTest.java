@@ -67,9 +67,9 @@ public class ProfileTest extends BaseTest{
         profilePage.changeUrlGitHub(gitHub);
         Assert.assertEquals(gitHub, profilePage.getChangeUrlGitHub());
 
-        profilePage.changeCity();
+        profilePage.changeCity("New York");
         driverWait.until(ExpectedConditions.visibilityOfElementLocated((By.id("city")) ));
-        //Assert.assertEquals( profilePage.getChangeCity());
+        Assert.assertEquals("New York", profilePage.getChangeCity());
 //        Thread.sleep(500);
 
 

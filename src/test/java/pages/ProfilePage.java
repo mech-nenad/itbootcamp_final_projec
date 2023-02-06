@@ -82,11 +82,10 @@ public class ProfilePage extends BasePage{
         changeUrlGitHub.sendKeys(Keys.DELETE);
         changeUrlGitHub.sendKeys(inputGitHub);
     }
-    public void changeCity() {
+    public void changeCity(String city) {
+        changeCity.click();
         changeCity.sendKeys(Keys.CONTROL + "a");
-        changeCity.sendKeys(Keys.DELETE);
-        changeCity.sendKeys(Keys.ARROW_DOWN);
-        changeCity.sendKeys(Keys.ARROW_DOWN);
+        changeCity.sendKeys("New York");
         changeCity.sendKeys(Keys.ENTER);
 
 

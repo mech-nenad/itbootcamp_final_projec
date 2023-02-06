@@ -35,6 +35,8 @@ public class SingupPage extends BasePage{
     @FindBy(xpath = "/html/body/div/div[1]/main/div/div[2]/div/div/div[3]/div/div/div/div/div[1]")
     private WebElement messageEmailAlreadyExists;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div/header/div/div[3]/button[1]/span")
+    private WebElement logoutButton;
 
 
     public SingupPage(WebDriver driver, WebDriverWait driverWait) {
@@ -87,5 +89,8 @@ public class SingupPage extends BasePage{
 
     public String getMessageEmailAlreadyExists() {
         return messageEmailAlreadyExists.getText();
+    }
+    public void logoutButonSelected() {
+        logoutButton.click();
     }
 }
