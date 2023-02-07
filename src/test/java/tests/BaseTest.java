@@ -17,29 +17,27 @@ public abstract class BaseTest {
     protected WebDriver driver;
 
     protected WebDriverWait driverWait;
-
     protected LoginPage loginPage;
-
     protected LandingPage homePage;
-
     protected SingupPage singupPage;
+
+    protected final String baseUrl = "https://vue-demo.daniel-avellaneda.com";
 
 
     @BeforeClass
     public void beforeClass() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\nenad\\Documents\\Driver\\chromedriver.exe");
+
         driver = new ChromeDriver();
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+
         driverWait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
         homePage = new LandingPage(driver, driverWait);
+
         loginPage = new LoginPage(driver, driverWait);
+
         singupPage = new SingupPage(driver, driverWait);
-
-
-
-
 
         }
 

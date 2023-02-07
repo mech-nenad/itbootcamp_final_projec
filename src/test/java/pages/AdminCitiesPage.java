@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class AdminCitiesPage extends BasePage{
+public class AdminCitiesPage extends BasePage {
 
 
     @FindBy(xpath = "/html/body/div/div[1]/div/header/div/div[3]/button[1]/span")
@@ -31,7 +31,7 @@ public class AdminCitiesPage extends BasePage{
     private WebElement selectedButtonSaveCity;
 
 
-   @FindBy(xpath = "//*[@id=\"edit\"]/span")
+    @FindBy(xpath = "//*[@id=\"edit\"]/span")
     private WebElement editCityName;
 
     @FindBy(id = "name")
@@ -51,9 +51,8 @@ public class AdminCitiesPage extends BasePage{
 
     @FindBy(css = "#app > div.v-dialog__content.v-dialog__content--active > div > div > div.v-card__actions > button.v-btn.v-btn--text.theme--light.v-size--default.red--text.text--lighten3")
     private WebElement selectedDeleteButton;
-    //@FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")
+
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")
-  //@FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")
     private WebElement messageDeleteCity;
 
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")
@@ -61,7 +60,6 @@ public class AdminCitiesPage extends BasePage{
     @FindBy(className = "text-left")
     private WebElement searchCity;
 
-  //  @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[2]/table/colgroup")
     @FindBy(xpath = "/html/body/div/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr/td[2]")
     private WebElement table;
 
@@ -72,8 +70,8 @@ public class AdminCitiesPage extends BasePage{
     private WebElement closeButton;
 
     @FindBy(xpath = "/html/body/div/div[6]/div/div/div[1]")
-                   // /html/body/div/div[7]/div/div/div[1]
     private WebElement messageDoYouReallyWantToDelete;
+
     public AdminCitiesPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
     }
@@ -113,6 +111,7 @@ public class AdminCitiesPage extends BasePage{
         searchCityName.sendKeys(citiName);
 
     }
+
     public void againSearchCity(String cityName) {
         clearSearchField.click();
         searchCityName.sendKeys(cityName);
@@ -125,6 +124,7 @@ public class AdminCitiesPage extends BasePage{
     public void deleteCity() {
         deleteButton.click();
     }
+
     public void deleteCityTable() {
         selectedDeleteButton.click();
     }
@@ -138,7 +138,7 @@ public class AdminCitiesPage extends BasePage{
     }
 
     public boolean logoutIsPresented() {
-    return  logoutcontent.isDisplayed();
+        return logoutcontent.isDisplayed();
     }
 
     public void logoutSelected() {
@@ -148,6 +148,7 @@ public class AdminCitiesPage extends BasePage{
     public WebElement getMessageElement() {
         return message;
     }
+
     public void cancelNotificationMessage() {
         closeButton.click();
     }

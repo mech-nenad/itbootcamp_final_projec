@@ -3,23 +3,22 @@ package tests;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 
-public class SingupTest extends BaseTest{
+public class SingUpTest extends BaseTest{
 
         private Faker faker;
-//   @AfterMethod
-//   public void afterMethod() {
-//       singupPage.logoutButonSelected();
-//   }
+
     @Test(priority =  1)  //Test 1
-    public  void singupForm() {
-        singupPage.logoutButonSelected();
+    public  void singUpForm() {
+
+        singupPage.logoutButtonSelected();
+
         singupPage.singupSelected();
 
         Assert.assertTrue(driver.getCurrentUrl().contains("/signup"));
+
     }
 
     @Test //Test2
@@ -31,8 +30,6 @@ public class SingupTest extends BaseTest{
         Assert.assertEquals(singupPage.getInputPassword(), "password");
 
         Assert.assertEquals(singupPage.getInputAgainPassword(), "password");
-
-
 
     }
 
@@ -46,24 +43,24 @@ public class SingupTest extends BaseTest{
 
         Assert.assertTrue(driver.getCurrentUrl().contains("/signup"));
 
-
         singupPage.inputValueForSingUp("Test Test", "admin@admin.com", "123654", "123654");
 
-
         Assert.assertTrue(singupPage.getMessageEmailAlreadyExists().contains("E-mail already exists"));
-
 
     }
 
     @Test   //Test 4
     public void singUp() throws InterruptedException {
+
         singupPage.singupSelected();
 
         singupPage.inputValueForSingUp("Pera Peric", "peraperoc3@gmail.com", "123456", "123456");
 
         Thread.sleep(2000);
 
-        Assert.assertTrue(singupPage.getImportantMessage().contains("Verify your account"));
+        Assert.assertTrue(singupPage.getImportantMessage().contains("IMPORTANT: Verify your account"));
+
+        singupPage.closeDialog();
 
     }
 }

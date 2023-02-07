@@ -44,39 +44,39 @@ public class ProfileTest extends BaseTest{
         profilePage.selectedProfile();
         String name = faker.name().fullName();
 
-
         profilePage.changeName(name);
-        Assert.assertEquals(name, profilePage.getChangeName1());
         driverWait.until(ExpectedConditions.visibilityOfElementLocated((By.id("name")) ));
 
         String phone = faker.phoneNumber().cellPhone();
         profilePage.changePhone(phone);
-        Assert.assertEquals(phone, profilePage.getChangePhone());
         driverWait.until(ExpectedConditions.visibilityOfElementLocated((By.id("phone")) ));
 
         String country = faker.country().name();
         profilePage.changeCountry(country);
-        Assert.assertEquals(country, profilePage.getChangeCountry());
 
-        String twitter = "https://Tikva.info";
+        String twitter = "https://tikva.info";
         profilePage.changeUrlTwitter(twitter);
-        Assert.assertEquals(twitter, profilePage.getChangeUrlTwitter());
 
+        Thread.sleep(2000);
 
-        String gitHub = "http://Tikva2.net";
+        String gitHub = "http://tikva2.net";
         profilePage.changeUrlGitHub(gitHub);
-        Assert.assertEquals(gitHub, profilePage.getChangeUrlGitHub());
 
         profilePage.changeCity("New York");
         driverWait.until(ExpectedConditions.visibilityOfElementLocated((By.id("city")) ));
-        Assert.assertEquals("New York", profilePage.getChangeCity());
-//        Thread.sleep(500);
-
 
         profilePage.selectedSave();
+
         Thread.sleep(500);
 
-         Assert.assertTrue(profilePage.getMessageForSaveChange().contains("Profile saved successfuly"));
+        Assert.assertEquals(profilePage.getChangeName1(), name);
+        Assert.assertEquals( profilePage.getChangeCity(),"New York");
+        Assert.assertEquals(profilePage.getChangeUrlGitHub(), gitHub);
+        Assert.assertEquals(profilePage.getChangeCountry(), country);
+        Assert.assertEquals(profilePage.getChangeUrlTwitter(), twitter);
+        Assert.assertEquals(profilePage.getChangePhone(),phone);
+
+        Assert.assertTrue(profilePage.getMessageForSaveChange().contains("Profile saved successfuly"));
 
     }
 }

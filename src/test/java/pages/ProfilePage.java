@@ -58,34 +58,38 @@ public class ProfilePage extends BasePage{
     }
 
     public void changeName(String inputName) {
+        changeName.click();
         changeName.sendKeys(Keys.CONTROL + "a");
         changeName.sendKeys(Keys.DELETE);
-        changeName.sendKeys(inputName);
+        changeName.sendKeys(inputName, Keys.ENTER);
     }
     public void changePhone(String inputPhone) {
+        changePhone.click();
         changePhone.sendKeys(Keys.CONTROL + "a");
         changePhone.sendKeys(Keys.DELETE);
-        changePhone.sendKeys(inputPhone);
+        changePhone.sendKeys(inputPhone, Keys.ENTER);
     }
     public void changeCountry(String inputCountry) {
+        changeName.click();
         changeCountry.sendKeys(Keys.CONTROL + "a");
         changeCountry.sendKeys(Keys.DELETE);
-        changeCountry.sendKeys(inputCountry);
+        changeCountry.sendKeys(inputCountry, Keys.ENTER);
     }
     public void changeUrlTwitter(String inputTwitter) {
+        changeUrlTwitter.click();
         changeUrlTwitter.sendKeys(Keys.CONTROL + "a");
         changeUrlTwitter.sendKeys(Keys.DELETE);
-        changeUrlTwitter.sendKeys(inputTwitter);
+        changeUrlTwitter.sendKeys(inputTwitter, Keys.ENTER);
     }
     public void changeUrlGitHub(String inputGitHub) {
         changeUrlGitHub.sendKeys(Keys.CONTROL + "a");
         changeUrlGitHub.sendKeys(Keys.DELETE);
-        changeUrlGitHub.sendKeys(inputGitHub);
+        changeUrlGitHub.sendKeys(inputGitHub, Keys.ENTER);
     }
     public void changeCity(String city) {
         changeCity.click();
         changeCity.sendKeys(Keys.CONTROL + "a");
-        changeCity.sendKeys("New York");
+        changeCity.sendKeys(city);
         changeCity.sendKeys(Keys.ENTER);
 
 

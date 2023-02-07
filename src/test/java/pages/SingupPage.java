@@ -38,6 +38,9 @@ public class SingupPage extends BasePage{
     @FindBy(xpath = "/html/body/div/div[1]/div/header/div/div[3]/button[1]/span")
     private WebElement logoutButton;
 
+    @FindBy(className = "btnClose")
+    private WebElement btnClose;
+
 
     public SingupPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
@@ -46,12 +49,6 @@ public class SingupPage extends BasePage{
     public void singupSelected() {
         singupContent.click();
     }
-
-//    public String getSingupContent() {
-//        return singupContent.getAttribute();
-//    }
-
-
 
     public void inputValueForSingUp(String name, String email, String password, String confirmPassword) {
         inputName.sendKeys(name);
@@ -90,7 +87,11 @@ public class SingupPage extends BasePage{
     public String getMessageEmailAlreadyExists() {
         return messageEmailAlreadyExists.getText();
     }
-    public void logoutButonSelected() {
+    public void logoutButtonSelected() {
         logoutButton.click();
+    }
+
+    public void closeDialog() {
+        btnClose.click();
     }
 }
